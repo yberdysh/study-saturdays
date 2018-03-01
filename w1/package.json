@@ -1,0 +1,11 @@
+{
+  "name": "study-staturday-week-1",
+  "version": "1.0.0",
+  "description": "fun w express!",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
