@@ -26,7 +26,7 @@ router.get('/', function(req, res ,next) {
 
 // Get Student by Id
 router.get('/:id', function(req, res ,next) {
-  let student = students.filter(person => person.id === req.params.id);
+  let student = students.filter(person => person.id === req.params.id)[0];
   res.json({student})
 })
 
@@ -98,6 +98,28 @@ router.put('/tests/:id', function(req, res ,next) {
   res.json({tests})
 })
 
+// Get Mean Score for Student
+router.get('/:id/mean', function(req, res ,next) {
+ 	let studentTests = tests.filter(test => test.studentId === req.params.id)
+ 	let total = studentTests.reduce((acc, test, idx) => {
+ 		return acc + test.score
+ 	}, 0);
+ 	let mean = total / (studentTests.length + 1);
+ 	res.json({mean})
+})
+
+
+// Get Top Scoring Student
+router.get('/top', function(req, res ,next) {
+	// reduce array of tests
+ 	let topScore = tests.reduce((prev, current, idx) => {
+ 		return (prev.score > current.score) ? prev : current
+ 	});
+ 	// find assoc student
+ 	let validictorian = students.filter(student => student.id === topScore.studentId);
+
+ 	res.json({validictorian})
+})
 
 
 
