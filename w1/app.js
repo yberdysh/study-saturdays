@@ -3,6 +3,9 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 
+// Routes
+const Student = require('./routes/student');
+
 // Init App
 const app = express();
 
@@ -11,6 +14,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(morgan('dev'));
 
+// Err-handling
+app.use(function(err, req, res, next) {
+  console.error(err.stack);
+  res.status(500).send('Something broke!');
+});
 
 // Listen on server 
 
