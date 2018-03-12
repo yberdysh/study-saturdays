@@ -47,3 +47,6 @@
 - Change the `xit` to `it` in the test specs and work through them one by one
 - Isolate `describe` blocks or `it` blocks of tests by changing it to `describe.only` or `it.only`
 
+#### Note for Instructors
+- Cycle branches begin with w2-cycle-2. You may start from there, or use the first cycle to install dependencies/restructure the file structure from study saturday 1
+
