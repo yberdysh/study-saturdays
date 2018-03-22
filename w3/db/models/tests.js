@@ -34,5 +34,6 @@ Test.findBySubject = function(type) {
 };
 
 Test.belongsTo(Student, { as: 'student' });
+Student.hasMany(Test)
 
 module.exports = Test;
