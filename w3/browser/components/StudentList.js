@@ -5,14 +5,19 @@ const StudentList = (props) => {
     return (
         <tbody>
         {
-            props.students 
+            props.students
             .map(student =>
                 (
                     <tr key={student.id}>
                         <td>
                             {student.fullName}
                         </td>
-                        <td onClick= {() => props.selectStudent(student)}>
+                        <td onClick= {(event) => {
+                          console.log(event)
+                          props.selectStudent(student)
+
+                        }
+                        }>
                             Details
                         </td>
                     </tr>

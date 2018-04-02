@@ -1,18 +1,23 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import Form from './Form.js'
 
-import StudentList from './StudentList.js' 
-import SingleStudent from './SingleStudent.js' 
+import StudentList from './StudentList.js'
+import SingleStudent from './SingleStudent.js'
 
 export default class Main extends Component {
-    constructor(props){
-        super(props)
+    constructor(){
+        super()
         this.state = {
             students: [],
-            selectedStudent : {}
+            selectedStudent : {},
+            showForm: false
+
         }
 
         this.selectStudent = this.selectStudent.bind(this)
+        this.addStudentToDb = this.addStudentToDb.bind(this)
+        this.handleShowForm = this.handleShowForm.bind(this)
     }
 
     componentDidMount(){
@@ -32,6 +37,18 @@ export default class Main extends Component {
         })
     }
 
+    addStudentToDb(student){
+      axios.post('/student', student)
+      .then(res => res.data)
+      .then(newStud => this.setState({students: [...this.state.students, newStud]}))
+    }
+
+    handleShowForm(evt){
+      return this.setState({showForm: !this.state.showForm})
+    }
+    //create new student form
+    //firstname, last name, and email
+
     render(){
         return (
             <div>
@@ -43,12 +60,15 @@ export default class Main extends Component {
                             <th>Tests</th>
                         </tr>
                     </thead>
-                    < StudentList students={this.state.students} selectStudent={this.selectStudent} />
+                    <StudentList students={this.state.students} selectStudent={this.selectStudent} />
                 </table>
+                <button onClick={this.handleShowForm}>Add Student</button>
+                { this.state.showForm ? <Form studentToAdd={this.addStudentToDb}/> : null}
                 {
-                    this.state.selectedStudent.id ? <SingleStudent student={this.state.selectedStudent} /> : null
+                    this.state.selectedStudent.id && <SingleStudent student={this.state.selectedStudent} />
                 }
-               
+
+
             </div>
         )
     }
